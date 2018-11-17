@@ -1,0 +1,13 @@
+#add-items-lbl {
+    margin: auto 10px auto 0px;
+}
+
+button {
+    background-color: greenyellow; 
+    margin: auto 0;
+    margin-right: 10px; 
+}
+
+table[mat-table] {
+    width: 100%;
+}
