@@ -1,11 +1,14 @@
 import { Reader } from './Reader';
 import { LibraryItem } from './LibraryItem';
+import { Injectable } from '@angular/core';
+import { assign } from 'lodash';
 
+@Injectable()
 export class Book extends LibraryItem {
 
-    protected authors: String[];
-    protected publisher: String;
-    protected noOfPages: Number;
+    private authors: String[];
+    private publisher: String;
+    private noOfPages: Number;
 
     constructor(ISBN: String, title: String, section: String, pubDate: Date,
                     currentReader: Reader, borrowedOn: Date, authors: String[], publisher: String, noOfPages: Number) {
@@ -13,6 +16,10 @@ export class Book extends LibraryItem {
         this.authors = authors;
         this.publisher = publisher;
         this.noOfPages = noOfPages;
+    }
+
+    static fromObject(object: Object): Book {
+        return assign(new this(null, null, null, null, null, null, null, null, null), object);
     }
 
     public getAuthors(): String[] {

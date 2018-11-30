@@ -1,5 +1,3 @@
-import { LibraryItem } from './LibraryItem';
-
 export class Reader {
 
     private readerId: String;
