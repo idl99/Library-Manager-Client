@@ -2,16 +2,16 @@ import { Reader } from './Reader';
 
 export abstract class LibraryItem {
 
-    protected ISBN: String;
+    protected isbn: String;
     protected title: String;
     protected section: String;
     protected pubDate: Date;
     protected currentReader: Reader;
     protected borrowedOn: Date;
 
-    constructor(ISBN: String, title: String, section: String,
+    constructor(isbn: String, title: String, section: String,
                     pubDate: Date, currentReader: Reader, borrowedOn: Date) {
-        this.ISBN = ISBN;
+        this.isbn = isbn;
         this.title = title;
         this.section = section;
         this.pubDate = pubDate;
@@ -19,12 +19,12 @@ export abstract class LibraryItem {
         this.borrowedOn = borrowedOn;
     }
 
-    public getISBN (): String {
-        return this.ISBN;
+    public getIsbn (): String {
+        return this.isbn;
     }
 
-    public setISBN (ISBN: String): void {
-        this.ISBN = ISBN;
+    public setIsbn (isbn: String): void {
+        this.isbn = isbn;
     }
 
     public getTitle (): String {
