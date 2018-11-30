@@ -15,7 +15,8 @@ import { SearchItemComponent } from './search-item/search-item.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActionButtonsComponent } from './action-buttons/action-buttons.component';
 import { AddItemDialogComponent } from './forms/add-item-dialog/add-item-dialog.component';
-import { ItemListService } from './shared/services/item-list.service';
+import { LibraryService } from './shared/services/library.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,11 +50,12 @@ import { ItemListService } from './shared/services/item-list.service';
     MatOptionModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    HttpClientModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
-    ItemListService
+    LibraryService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
