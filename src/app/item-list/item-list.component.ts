@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Book } from '../shared/models/Book';
-import { MatDialog, } from '@angular/material';
+import { MatDialog, MatTableDataSource, } from '@angular/material';
 import { AddItemDialogComponent } from '../forms/add-item-dialog/add-item-dialog.component';
-import { ItemListService } from '../shared/services/item-list.service';
+import { LibraryService } from '../shared/services/library.service';
 import { LibraryItem } from '../shared/models/LibraryItem';
+import { Dvd } from '../shared/models/Dvd';
 
 @Component({
   selector: 'app-item-list',
@@ -12,18 +13,47 @@ import { LibraryItem } from '../shared/models/LibraryItem';
 })
 export class ItemListComponent {
 
-  columnsToDisplay: String[] = ['ISBN', 'title', 'section', 'actionBtns']; // columns to display in Item List Data Table
+  // private dataSource: LibraryItemDataSource;
+  private dataSource: MatTableDataSource<LibraryItem>;
+  private columnsToDisplay: String[]; // columns to display in Item List Data Table
 
-  data: LibraryItem[]; // ItemList data to be displayed on table
-                      // obtained using instance of ItemListService
+  constructor(public dialog: MatDialog, private libraryService: LibraryService ) {
+    // this.dataSource = new LibraryItemDataSource(libraryService);
+    this.dataSource = new MatTableDataSource();
+    libraryService.getAllItems().subscribe((data) => {
+      this.dataSource.data = data as LibraryItem[];
+    });
+    this.columnsToDisplay = ['Availability', 'Type', 'ISBN', 'title', 'section', 'actionBtns'];
+  }
 
-  constructor(public dialog: MatDialog, private itemListService: ItemListService) {
-    this.data = itemListService.getAllItems();
+  private isAvailable(item: LibraryItem): boolean {
+    return item.getCurrentReader() === null ? true : false;
+  }
+
+  private isBook(item: LibraryItem): boolean {
+    console.log(item);
+    return item instanceof Book;
+  }
+
+  private isDvd(item: LibraryItem): boolean {
+    // console.log(item);
+    return item instanceof Dvd;
+  }
+
+  private onDelete(item: LibraryItem): void {
+    if (item instanceof Book) {
+      this.libraryService.deleteBook(item.getIsbn());
+    } else if (item instanceof Dvd) {
+      this.libraryService.deleteDvd(item.getIsbn());
+    }
+  }
+
+  public applyFilter(filterString: String): void {
+    this.dataSource.filter = filterString.trim().toLowerCase();
   }
 
   // method invoked to open Add Item Dialog
-  onClick(choice: String): void {
-
+  onAddItem(choice: String): void {
     this.dialog.open(AddItemDialogComponent, {
       width: '600px',
       data: {
@@ -33,3 +63,19 @@ export class ItemListComponent {
   }
 
 }
+
+// export class LibraryItemDataSource extends DataSource<LibraryItem> {
+
+//   constructor(private libraryService: LibraryService) {
+//     super();
+//   }
+
+//   connect(): Observable<LibraryItem[]> {
+//     return this.libraryService.getAllItems();
+//   }
+
+//   disconnect(): void {
+//   }
+
+
+// }
