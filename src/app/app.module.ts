@@ -13,7 +13,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemListComponent } from './item-list/item-list.component';
 import { SearchItemComponent } from './search-item/search-item.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ActionButtonsComponent } from './action-buttons/action-buttons.component';
 import { AddItemDialogComponent } from './forms/add-item-dialog/add-item-dialog.component';
 import { LibraryService } from './shared/services/library.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +23,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppNavigationComponent,
     ItemListComponent,
     SearchItemComponent,
-    ActionButtonsComponent,
     AddItemDialogComponent
   ],
   imports: [
