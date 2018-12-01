@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule,
   MatToolbarModule, MatSidenavModule, MatListModule, MatFormFieldModule, MatInputModule,
   MatTableModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatOptionModule, MatSelectModule,
-  MatDatepickerModule, MatNativeDateModule, MatExpansionModule} from '@angular/material';
+  MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MAT_DATE_LOCALE} from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppNavigationComponent } from './app-navigation/app-navigation.component';
@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddItemDialogComponent } from './forms/add-item-dialog/add-item-dialog.component';
 import { LibraryService } from './shared/services/library.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppNavigationComponent,
     ItemListComponent,
     SearchItemComponent,
-    AddItemDialogComponent
+    AddItemDialogComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     LibraryService
   ],
   bootstrap: [AppComponent],
