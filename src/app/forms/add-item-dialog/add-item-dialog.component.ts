@@ -1,11 +1,12 @@
 import { Component, Inject} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent} from '@angular/material';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LibraryService } from '../../shared/services/library.service';
 import { Book } from '../../shared/models/Book';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Dvd } from '../../shared/models/Dvd';
+import { LibraryItem } from '../../shared/models/LibraryItem';
+
 
 @Component({
   selector: 'app-add-item-dialog',
@@ -19,8 +20,8 @@ export class AddItemDialogComponent {
   addItemForm: FormGroup;
   isFormValid: boolean;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder,
-                  public dialogRef: MatDialogRef<AddItemDialogComponent>, private libraryService: LibraryService ) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddItemDialogComponent>,
+                 private fb: FormBuilder, private libraryService: LibraryService) {
 
       this.itemType = data.itemType;
 
@@ -29,7 +30,7 @@ export class AddItemDialogComponent {
           isbn: [null, [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
           title: [null, [Validators.required]],
           section: [null, [Validators.required]],
-          pubDate: [null]
+          pubDate: [new Date().toLocaleDateString('en-gb')]
         })
       });
 
@@ -52,12 +53,38 @@ export class AddItemDialogComponent {
 
   } // end of constructor
 
-  onOk(): void {
-    // TODO implement POST to server here
-    alert('To post Item');
-    of(this.addItemForm.value).pipe(
-      map((formGroup: Object) => {
-        const obj: Object = {};
+  private onOk(): void {
+    const toPostItem: LibraryItem = this.convertInputToItem(this.addItemForm.value);
+    let observable: Observable<LibraryItem>;
+    if (toPostItem instanceof Book) {
+      observable = this.libraryService.postBook(toPostItem);
+    } else if (toPostItem instanceof Dvd) {
+      observable = this.libraryService.postDvd(toPostItem);
+    }
+    observable.subscribe(
+      success => {
+        alert('POST item succcessful');
+        this.dialogRef.close();
+      },
+      err => {
+        alert('POST item unsuccessful');
+        this.dialogRef.close();
+      }
+    );
+  }
+
+  private onCancel(): void {
+    this.dialogRef.close();
+  }
+
+  private updateDate(event: MatDatepickerInputEvent<Date>): void {
+    console.log('update date invoked');
+    this.addItemForm.controls.itemDetails.get('pubDate').setValue
+      (event.value.toLocaleDateString('en-gb'));
+  }
+
+  private convertInputToItem(formGroup: Object): LibraryItem {
+    const obj: Object = {};
         for (const nestedFormGroup in formGroup) {
           if (formGroup.hasOwnProperty(nestedFormGroup)) {
             const element = formGroup[nestedFormGroup];
@@ -69,21 +96,10 @@ export class AddItemDialogComponent {
           }
         }
         if (this.itemType === 'Book') {
-          const book: Book = Book.fromObject(obj);
-          this.libraryService.postBook(book);
+          return Book.fromObject(obj);
         } else if (this.itemType === 'Dvd') {
-          // Implement DVD post
-          const dvd: Dvd = Dvd.fromObject(obj);
-          console.log(dvd);
-          this.libraryService.postDvd(dvd);
+          return Dvd.fromObject(obj);
         }
-      })
-    ).subscribe(response => console.log(response));
-    this.dialogRef.close();
-  }
-
-  onCancel(): void {
-    this.dialogRef.close();
   }
 
 }

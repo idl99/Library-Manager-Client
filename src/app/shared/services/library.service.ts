@@ -46,56 +46,48 @@ export class LibraryService {
     );
   }
 
-  postBook(book: Book): void {
-    this.httpService.post<Book>('http://localhost:9000/library/books', book).subscribe(
-      success => {
-        alert('POST library/book successful');
-        console.log(success);
-      },
-      err => {
-        alert('POST library/book unsuccessful');
-        console.log(err);
-      }
-    );
+  postBook(book: Book): Observable<Book> {
+    return this.httpService.post<Book>('http://localhost:9000/library/books', book);
   }
 
-  postDvd(dvd: Dvd): void {
-    this.httpService.post<Dvd>('http://localhost:9000/library/dvd', dvd).subscribe(
-      success => {
-        alert('POST library/dvd successful');
-        console.log(success);
-      },
-      err => {
-        alert('POST library/dvd unsuccessful');
-        console.log(err);
-      }
-    );
+  postDvd(dvd: Dvd): Observable<Dvd> {
+    return this.httpService.post<Dvd>('http://localhost:9000/library/dvd', dvd);
   }
 
-  deleteBook(isbn: String): void {
-    this.httpService.delete<String>('http://localhost:9000/library/books/' + isbn).subscribe(
-      success => {
-        alert('DELETE library/book successful');
-        console.log(success);
-      },
-      err => {
-        alert('DELETE library/book unsuccessful');
-        console.log(err);
-      }
-    );
+  deleteBook(isbn: String): Observable<String> {
+    return this.httpService.delete<String>('http://localhost:9000/library/books/' + isbn);
   }
 
-  deleteDvd(isbn: String): void {
-    this.httpService.delete<String>('http://localhost:9000/library/dvd/' + isbn).subscribe(
-      success => {
-        alert('DELETE library/dvd successful');
-        console.log(success);
-      },
-      err => {
-        alert('DELETE library/dvd unsuccessful');
-        console.log(err);
-      }
-    );
+  deleteDvd(isbn: String): Observable<String> {
+    return this.httpService.delete<String>('http://localhost:9000/library/dvd/' + isbn);
+  }
+
+  borrowItem(item: LibraryItem, readerId: String, dateString: String): Observable<LibraryItem> {
+
+    if (item instanceof Book) {
+      return this.httpService.put<Book>('http://localhost:9000/library/borrow',
+      {type: 'Book', isbn: item.getIsbn(), readerId: readerId, borrowedOn: dateString});
+    } else if (item instanceof Dvd) {
+      return this.httpService.put<Dvd>('http://localhost:9000/library/borrow',
+      {type: 'Dvd', isbn: item.getIsbn(), readerId: readerId, borrowedOn: dateString});
+    }
+
+  }
+
+  returnItem(item: LibraryItem): Observable<LibraryItem> {
+
+    if (item instanceof Book) {
+      // return this.httpService.put<Book>('http://localhost:9000/library/return',
+      // {type: 'Book', isbn: item.getIsbn(), returnedOn: '10/12/2018'});
+      return this.httpService.put<Book>('http://localhost:9000/library/return',
+      {type: 'Book', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
+    } else if (item instanceof Dvd) {
+      // return this.httpService.put<Dvd>('http://localhost:9000/library/return',
+      // {type: 'Dvd', isbn: item.getIsbn(), returnedOn: '10/12/2018'});
+      return this.httpService.put<Dvd>('http://localhost:9000/library/return',
+      {type: 'Dvd', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
+    }
+
   }
 
 

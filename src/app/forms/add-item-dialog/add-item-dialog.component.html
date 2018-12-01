@@ -1,90 +1,92 @@
 <h1 mat-dialog-title>Add {{itemType}}</h1>
+
 <div mat-dialog-content>
   <form name="addItemForm" [formGroup]="addItemForm">
     <section>
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-              Item Details
-            </mat-panel-title>
-            <mat-panel-description>
-              Enter Item Details
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div formGroupName="itemDetails" class="form-field-container">
-            <mat-form-field>
-              <input formControlName="isbn" required matInput placeholder="ISBN">
-            </mat-form-field>
-            <mat-form-field>
-              <input formControlName="title" required matInput placeholder="Title">
-            </mat-form-field>
-            <mat-form-field>
-              <input formControlName="section" required matInput placeholder="Section">
-            </mat-form-field>
-            <mat-form-field>
-                <input formControlname="pubDate" matInput [matDatepicker]="picker" placeholder="Published Date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            Item Details
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter Item Details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div formGroupName="itemDetails" class="form-field-container">
+          <mat-form-field>
+            <input formControlName="isbn" required matInput placeholder="ISBN">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="title" required matInput placeholder="Title">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="section" required matInput placeholder="Section">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlname="pubDate" (dateInput)="updateDate($event)" (dateChange)="updateDate($event)" matInput [matDatepicker]="picker" 
+                placeholder="Published Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
     </section>
     
     <section *ngIf="itemType === 'Book'">
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Book Details
-            </mat-panel-title>
-            <mat-panel-description>
-              Enter Book Details
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div formGroupName="bookDetails" class="form-field-container">
-            <mat-form-field>
-              <input formControlName="authors" matInput placeholder="Authors">
-            </mat-form-field>
-            <mat-form-field>
-              <input formControlName="publisher" matInput placeholder="Publisher">
-            </mat-form-field>
-            <mat-form-field>
-              <input formControlName="noOfPages" matInput placeholder="No. of Pages">
-            </mat-form-field>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Book Details
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter Book Details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div formGroupName="bookDetails" class="form-field-container">
+          <mat-form-field>
+            <input formControlName="authors" matInput placeholder="Authors">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="publisher" matInput placeholder="Publisher">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="noOfPages" matInput placeholder="No. of Pages">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
     </section>
    
     <section *ngIf="itemType === 'Dvd'">
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              DVD Details
-            </mat-panel-title>
-            <mat-panel-description>
-              Enter DVD Details
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="form-field-container" formGroupName="dvdDetails">
-            <mat-form-field>
-                <input formControlName="audio" matInput placeholder="Audio">
-            </mat-form-field>
-            <mat-form-field>
-                <input formControlName="subtitles" matInput placeholder="Subtitles">
-            </mat-form-field>
-            <mat-form-field>
-                <input formControlName="actors" matInput placeholder="Actors">
-            </mat-form-field>
-            <mat-form-field>
-                <input formControlName="producer" matInput placeholder="Producer">
-            </mat-form-field>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            DVD Details
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter DVD Details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="form-field-container" formGroupName="dvdDetails">
+          <mat-form-field>
+              <input formControlName="audio" matInput placeholder="Audio">
+          </mat-form-field>
+          <mat-form-field>
+              <input formControlName="subtitles" matInput placeholder="Subtitles">
+          </mat-form-field>
+          <mat-form-field>
+              <input formControlName="actors" matInput placeholder="Actors">
+          </mat-form-field>
+          <mat-form-field>
+              <input formControlName="producer" matInput placeholder="Producer">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
     </section>
 
   </form>
@@ -93,6 +95,5 @@
 
 <div mat-dialog-actions>
   <button mat-stroked-button (click)="onCancel()">Cancel</button>
-  <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
   <button mat-flat-button [disabled]="!addItemForm.valid" color="primary" (click)="onOk()" cdkFocusInitial>Ok</button>
 </div>
