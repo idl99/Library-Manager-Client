@@ -90,5 +90,9 @@ export class LibraryService {
 
   }
 
+  getReport(generatedOn: String): Observable<LibraryItem[]> {
+    return this.httpService.get<LibraryItem[]>('http://localhost:9000/library/report?generatedOn=' + generatedOn);
+  }
+
 
 }
