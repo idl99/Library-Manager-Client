@@ -1,3 +1,13 @@
+#emptyMsg{
+    margin: auto 0px;
+}
+
+#emptyMsgContainer{
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+}
+
 table[mat-table] {
     width: 100%;
 }

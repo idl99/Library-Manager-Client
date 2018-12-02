@@ -1,34 +1,34 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table *ngIf="dataSource.data.length!==0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="isbn">
     <th mat-header-cell *matHeaderCellDef> ISBN </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <td mat-cell *matCellDef="let item"> {{item.isbn}} </td>
   </ng-container>
-
  
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <td mat-cell *matCellDef="let item"> {{item.title}} </td>
   </ng-container>
-
 
   <ng-container matColumnDef="borrowedOn">
     <th mat-header-cell *matHeaderCellDef> Borrowed On </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    <td mat-cell *matCellDef="let item"> {{item.borrowedOn}} </td>
   </ng-container>
 
-
-  <ng-container matColumnDef="overdueBy">
-    <th mat-header-cell *matHeaderCellDef> Overdue By </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <ng-container matColumnDef="overdueBy" matSort matSortDirection="desc" matSortActive="overdueBy">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Overdue By (Days) </th>
+    <td mat-cell *matCellDef="let item"> {{item.overdueBy}} </td>
   </ng-container>
 
   <ng-container matColumnDef="fee">
     <th mat-header-cell *matHeaderCellDef> Fee </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    <td mat-cell *matCellDef="let item"> ${{item.fee}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
 </table>
+<div id="emptyMsgContainer" *ngIf="dataSource.data.length===0">
+<h1 id="emptyMsg" style="text-align: center;">No items are currently overdue</h1>
+</div>
