@@ -11,8 +11,8 @@ export class Dvd extends LibraryItem {
     private producer: String;
     private actors: String[];
 
-    constructor(ISBN: String, title: String, section: String, pubDate: Date,
-        currentReader: Reader, borrowedOn: Date, audio: String[], subtitles: String[], producer: String, actors: String[]) {
+    constructor(ISBN: String, title: String, section: String, pubDate: String,
+        currentReader: Reader, borrowedOn: String, audio: String[], subtitles: String[], producer: String, actors: String[]) {
         super(ISBN, title, section, pubDate, currentReader, borrowedOn);
         this.audio = audio;
         this.subtitles = subtitles;

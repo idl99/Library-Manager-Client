@@ -5,12 +5,12 @@ export abstract class LibraryItem {
     protected isbn: String;
     protected title: String;
     protected section: String;
-    protected pubDate: Date;
+    protected pubDate: String;
     protected currentReader: Reader;
-    protected borrowedOn: Date;
+    protected borrowedOn: String;
 
     constructor(isbn: String, title: String, section: String,
-                    pubDate: Date, currentReader: Reader, borrowedOn: Date) {
+                    pubDate: String, currentReader: Reader, borrowedOn: String) {
         this.isbn = isbn;
         this.title = title;
         this.section = section;
@@ -44,11 +44,11 @@ export abstract class LibraryItem {
         this.section = section;
     }
 
-    public getPubDate (): Date {
+    public getPubDate (): String {
         return this.pubDate;
     }
 
-    public setPubDate (pubDate: Date): void {
+    public setPubDate (pubDate: String): void {
         this.pubDate = pubDate;
     }
 
@@ -60,11 +60,11 @@ export abstract class LibraryItem {
         this.currentReader = currentReader;
     }
 
-    public getBorrowedOn (): Date {
+    public getBorrowedOn (): String {
         return this.borrowedOn;
     }
 
-    public setBorrowedOn (borrowedOn: Date): void {
+    public setBorrowedOn (borrowedOn: String): void {
         this.borrowedOn = borrowedOn;
     }
 

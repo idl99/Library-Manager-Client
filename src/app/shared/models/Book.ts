@@ -10,8 +10,8 @@ export class Book extends LibraryItem {
     private publisher: String;
     private noOfPages: Number;
 
-    constructor(ISBN: String, title: String, section: String, pubDate: Date,
-                    currentReader: Reader, borrowedOn: Date, authors: String[], publisher: String, noOfPages: Number) {
+    constructor(ISBN: String, title: String, section: String, pubDate: String,
+                    currentReader: Reader, borrowedOn: String, authors: String[], publisher: String, noOfPages: Number) {
         super(ISBN, title, section, pubDate, currentReader, borrowedOn);
         this.authors = authors;
         this.publisher = publisher;
