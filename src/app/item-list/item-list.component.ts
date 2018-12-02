@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Book } from '../shared/models/Book';
-import { MatDialog, MatTableDataSource, } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { AddItemDialogComponent } from '../forms/add-item-dialog/add-item-dialog.component';
 import { LibraryService } from '../shared/services/library.service';
 import { LibraryItem } from '../shared/models/LibraryItem';
@@ -22,10 +22,14 @@ export class ItemListComponent {
     // this.dataSource = new LibraryItemDataSource(libraryService);
     this.dataSource = new MatTableDataSource();
     this.initializeDatasource();
-    this.columnsToDisplay = ['Availability', 'Type', 'ISBN', 'title', 'section', 'actionBtns'];
+    this.columnsToDisplay = ['Availability', 'Type', 'ISBN', 'title', 'section', 'actionBtns', 'availableOn'];
   }
 
-  public initializeDatasource(): void {
+  public applyFilter(filterString: String): void {
+    this.dataSource.filter = filterString.trim().toLowerCase();
+  }
+
+  private initializeDatasource(): void {
     this.libraryService.getAllItems().subscribe((data) => {
       this.dataSource.data = data as LibraryItem[];
     });
@@ -43,10 +47,6 @@ export class ItemListComponent {
   private isDvd(item: LibraryItem): boolean {
     // console.log(item);
     return item instanceof Dvd;
-  }
-
-  public applyFilter(filterString: String): void {
-    this.dataSource.filter = filterString.trim().toLowerCase();
   }
 
   // method invoked to open Add Item Dialog
@@ -109,16 +109,26 @@ export class ItemListComponent {
     );
   }
 
-  private getToolTip(item: LibraryItem): String {
+  private getTooltip(item: LibraryItem): String {
     if (this.isAvailable(item)) {
-      return 'Item is available to be borrowed';
+      return 'Available Now';
     } else {
+
+      const day: number = parseInt(item.getBorrowedOn()['day'], null);
+      const month: number = parseInt(item.getBorrowedOn()['month'], null);
+      const year: number = parseInt(item.getBorrowedOn()['year'], null);
+
+      const date: Date = new Date(year, month - 1, day);
       if (item instanceof Book) {
-        return 'Book is currently borrowed. Will be available again soon';
+        date.setDate(date.getDate() + 7);
+        return date.toLocaleDateString('en-gb');
       } else if (item instanceof Dvd) {
-        return 'Dvd is currently borrowed. Will be available again soon';
+        date.setDate(date.getDate() + 3);
+        return date.toLocaleDateString('en-gb');
       }
+
     }
+
   }
 
 }

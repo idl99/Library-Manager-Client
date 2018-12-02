@@ -57,14 +57,20 @@
         <td mat-cell *matCellDef="let item"> {{item.getSection()}} </td>
       </ng-container>
       <ng-container matColumnDef="actionBtns">
-          <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
-          <td mat-cell *matCellDef="let item">
-            <button mat-raised-button color="warn" (click)="onDelete(item)">DELETE</button>
-            <button mat-raised-button [disabled]="!isAvailable(item)" matTooltip="borrow" (click)="onBorrow(item)" color="accent">BORROW</button>
-            <button mat-raised-button [disabled]="isAvailable(item)" (click)="onReturn(item)" color="accent">RETURN</button>
-            <button mat-raised-button color="primary">RESERVE</button>
-          </td>
-        </ng-container>
+        <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-raised-button color="warn" (click)="onDelete(item)">DELETE</button>
+          <button mat-raised-button [disabled]="!isAvailable(item)" (click)="onBorrow(item)" color="accent">BORROW</button>
+          <button mat-raised-button [disabled]="isAvailable(item)" (click)="onReturn(item)" color="accent">RETURN</button>
+          <button mat-raised-button color="primary">RESERVE</button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="availableOn">
+        <th mat-header-cell *matHeaderCellDef> AVAILABLE ON </th>
+        <td mat-cell *matCellDef="let item">
+          <p>{{getTooltip(item)}}</p>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
     </table>  
