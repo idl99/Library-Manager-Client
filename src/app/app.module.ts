@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule,
-  MatToolbarModule, MatSidenavModule, MatListModule, MatFormFieldModule, MatInputModule,
-  MatTableModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatOptionModule, MatSelectModule,
-  MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MAT_DATE_LOCALE} from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule,
+         MatSidenavModule, MatListModule, MatFormFieldModule, MatInputModule, MatTableModule, MatDialogModule,
+         MAT_DIALOG_DEFAULT_OPTIONS, MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,
+         MatExpansionModule, MAT_DATE_LOCALE, MatSortModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppNavigationComponent } from './app-navigation/app-navigation.component';
@@ -51,7 +51,8 @@ import { ReportComponent } from './report/report.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSortModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
