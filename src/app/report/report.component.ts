@@ -20,7 +20,7 @@ export class ReportComponent {
   }
 
   private initializeDataSource(): void {
-    this.libraryService.getReport('10/12/2018').subscribe(
+    this.libraryService.getReport(new Date(Date.now()).toLocaleDateString('en-gb')).subscribe(
       success => {
         this.dataSource.data = success['items'];
         console.log(this.dataSource.data);
