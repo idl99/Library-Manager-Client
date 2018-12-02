@@ -78,7 +78,6 @@ export class AddItemDialogComponent {
   }
 
   private updateDate(event: MatDatepickerInputEvent<Date>): void {
-    console.log('update date invoked');
     this.addItemForm.controls.itemDetails.get('pubDate').setValue
       (event.value.toLocaleDateString('en-gb'));
   }
