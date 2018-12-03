@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { LibraryItem } from '../models/LibraryItem';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../models/Book';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { Dvd } from '../models/Dvd';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,15 @@ export class LibraryService {
 
   getAllItems(): Observable<LibraryItem[]> {
     return forkJoin(this.getAllBooks(), this.getAllDvd()).pipe(
-      map((data) => {
+      map(data => {
         let array: LibraryItem[] = [];
-        array = array.concat(data[0]).concat(data[1]);
+        data.forEach(element => {
+          if (element !== null) {
+            array = array.concat(element);
+          }
+        });
         return array;
-      })
-    );
+      }));
   }
 
   getAllBooks(): Observable<Book[]> {
@@ -30,8 +33,11 @@ export class LibraryService {
         const aryOfBooks: Array<Book> = [];
         response.forEach(element => aryOfBooks.push(Book.fromObject(element)));
         return aryOfBooks;
-      })
-    );
+      }),
+      catchError((err) => {
+        alert(err.error);
+        return of(null);
+      }));
   }
 
   getAllDvd(): Observable<Dvd[]> {
@@ -42,8 +48,11 @@ export class LibraryService {
           aryOfDvd.push(Dvd.fromObject(element));
         });
         return aryOfDvd;
-      })
-    );
+      }),
+      catchError((err) => {
+        alert(err.error);
+        return of(null);
+      }));
   }
 
   postBook(book: Book): Observable<Book> {
@@ -88,6 +97,17 @@ export class LibraryService {
       {type: 'Dvd', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
     }
 
+  }
+
+  reserveItem(item: LibraryItem, readerId: String): Observable<any> {
+    let type: String;
+    if (item instanceof Book) {
+      type = 'Book';
+    } else if (item instanceof Dvd) {
+      type = 'Dvd';
+    }
+    return this.httpService.put<any>('http://localhost:9000/library/reserve',
+    {type: type, isbn: item.getIsbn(), readerId: readerId});
   }
 
   getReport(generatedOn: String): Observable<LibraryItem[]> {
