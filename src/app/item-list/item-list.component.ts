@@ -30,9 +30,12 @@ export class ItemListComponent {
   }
 
   private initializeDatasource(): void {
-    this.libraryService.getAllItems().subscribe((data) => {
-      this.dataSource.data = data as LibraryItem[];
-    });
+    this.libraryService.getAllItems().subscribe(
+      response => {
+        this.dataSource.data = response as LibraryItem[];
+      },
+      err => alert(err)
+      );
   }
 
   private isAvailable(item: LibraryItem): boolean {
@@ -40,12 +43,10 @@ export class ItemListComponent {
   }
 
   private isBook(item: LibraryItem): boolean {
-    // console.log(item);
     return item instanceof Book;
   }
 
   private isDvd(item: LibraryItem): boolean {
-    // console.log(item);
     return item instanceof Dvd;
   }
 
@@ -71,12 +72,10 @@ export class ItemListComponent {
     observable.subscribe(
       success => {
         this.initializeDatasource();
-        alert('DELETE library/book successful');
-        console.log(success);
+        alert(success);
       },
       err => {
-        alert('DELETE library/book unsuccessful');
-        console.log(err);
+        alert(err);
       }
     );
   }
@@ -90,9 +89,9 @@ export class ItemListComponent {
     this.libraryService.borrowItem(libraryItem, readerId, new Date(Date.now()).toLocaleDateString('en-gb')).subscribe(
       success => {
         this.initializeDatasource();
-        alert('Successfully borrowed item');
+        alert(success);
       },
-      error => alert('Failed to borrow item')
+      err => alert(err)
     );
   }
 
@@ -100,16 +99,27 @@ export class ItemListComponent {
     this.libraryService.returnItem(libraryItem).subscribe(
       success => {
         this.initializeDatasource();
-        alert('Successfully returned book. Due fee is $' + success);
+        alert(success);
       },
-      error => {
-        console.log(error);
-        alert('Failed to return book');
+      err => {
+        alert(err);
       }
     );
   }
 
-  private getTooltip(item: LibraryItem): String {
+  private onReserve(libraryItem: LibraryItem): void {
+    const readerId = window.prompt('Enter Reader Id: ');
+    if (readerId == null) {
+      alert('Reader Id is required. Try again');
+    } else {
+      this.libraryService.reserveItem(libraryItem, readerId).subscribe(
+        success => alert(success),
+        err => alert(err)
+      );
+    }
+  }
+
+  private getAvailableOn(item: LibraryItem): String {
     if (this.isAvailable(item)) {
       return 'Available Now';
     } else {
