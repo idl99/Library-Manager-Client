@@ -63,11 +63,11 @@ export class AddItemDialogComponent {
     }
     observable.subscribe(
       success => {
-        alert('POST item succcessful');
+        alert(success);
         this.dialogRef.close();
       },
       err => {
-        alert('POST item unsuccessful');
+        alert(err);
         this.dialogRef.close();
       }
     );

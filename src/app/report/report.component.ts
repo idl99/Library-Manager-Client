@@ -23,9 +23,7 @@ export class ReportComponent {
     this.libraryService.getReport(new Date(Date.now()).toLocaleDateString('en-gb')).subscribe(
       success => {
         this.dataSource.data = success['items'];
-        console.log(this.dataSource.data);
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
       }
     );
   }
