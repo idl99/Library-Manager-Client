@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule,
          MatSidenavModule, MatListModule, MatFormFieldModule, MatInputModule, MatTableModule, MatDialogModule,
          MAT_DIALOG_DEFAULT_OPTIONS, MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,
-         MatExpansionModule, MAT_DATE_LOCALE, MatSortModule } from '@angular/material';
+         MatExpansionModule, MAT_DATE_LOCALE, MatSortModule, MatProgressSpinnerModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppNavigationComponent } from './app-navigation/app-navigation.component';
@@ -17,6 +17,7 @@ import { AddItemDialogComponent } from './forms/add-item-dialog/add-item-dialog.
 import { LibraryService } from './shared/services/library.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportComponent } from './report/report.component';
+import { ProgressSpinnerDialogComponent } from './progress-spinner-dialog/progress-spinner-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReportComponent } from './report/report.component';
     ItemListComponent,
     SearchItemComponent,
     AddItemDialogComponent,
-    ReportComponent
+    ReportComponent,
+    ProgressSpinnerDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { ReportComponent } from './report/report.component';
     MatNativeDateModule,
     MatExpansionModule,
     HttpClientModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
@@ -62,7 +65,8 @@ import { ReportComponent } from './report/report.component';
   bootstrap: [AppComponent],
   entryComponents: [
     // dynamically created components
-    AddItemDialogComponent
+    AddItemDialogComponent,
+    ProgressSpinnerDialogComponent
   ]
 })
 export class AppModule { }
