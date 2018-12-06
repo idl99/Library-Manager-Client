@@ -14,20 +14,22 @@ import { Observable } from 'rxjs';
 })
 export class ItemListComponent {
 
-  // private dataSource: LibraryItemDataSource;
+
   private dataSource: MatTableDataSource<LibraryItem>;
-  private columnsToDisplay: String[]; // columns to display in Item List Data Table
+  private columnsToDisplay: String[] = ['Availability', 'Type', 'ISBN', 'title', 'section', 'actionBtns', 'availableOn'];
+
 
   constructor(public dialog: MatDialog, private libraryService: LibraryService ) {
     // this.dataSource = new LibraryItemDataSource(libraryService);
     this.dataSource = new MatTableDataSource();
     this.initializeDatasource();
-    this.columnsToDisplay = ['Availability', 'Type', 'ISBN', 'title', 'section', 'actionBtns', 'availableOn'];
   }
+
 
   public applyFilter(filterString: String): void {
     this.dataSource.filter = filterString.trim().toLowerCase();
   }
+
 
   private initializeDatasource(): void {
     this.libraryService.getAllItems().subscribe(
@@ -38,17 +40,21 @@ export class ItemListComponent {
       );
   }
 
+
   private isAvailable(item: LibraryItem): boolean {
     return item.getCurrentReader() === null ? true : false;
   }
+
 
   private isBook(item: LibraryItem): boolean {
     return item instanceof Book;
   }
 
+
   private isDvd(item: LibraryItem): boolean {
     return item instanceof Dvd;
   }
+
 
   // method invoked to open Add Item Dialog
   private onAddItem(choice: String): void {
@@ -61,6 +67,7 @@ export class ItemListComponent {
     this.dialog._afterAllClosed.subscribe(() => this.initializeDatasource()
     );
   }
+
 
   private onDelete(item: LibraryItem): void {
     let observable: Observable<String>;
@@ -80,6 +87,7 @@ export class ItemListComponent {
     );
   }
 
+
   // method to open Borrow Item Dialog
   private onBorrow(libraryItem: LibraryItem): void {
     const readerId: String = window.prompt('Enter Reader Id: ');
@@ -95,6 +103,7 @@ export class ItemListComponent {
     );
   }
 
+
   private onReturn(libraryItem: LibraryItem): void {
     this.libraryService.returnItem(libraryItem).subscribe(
       success => {
@@ -107,6 +116,7 @@ export class ItemListComponent {
     );
   }
 
+
   private onReserve(libraryItem: LibraryItem): void {
     const readerId = window.prompt('Enter Reader Id: ');
     if (readerId == null) {
@@ -118,6 +128,7 @@ export class ItemListComponent {
       );
     }
   }
+
 
   private getAvailableOn(item: LibraryItem): String {
     if (this.isAvailable(item)) {
