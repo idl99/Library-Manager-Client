@@ -35,6 +35,7 @@ export class LibraryService {
         return aryOfBooks;
       }),
       catchError((err) => {
+        // failed to fetch from the database, or books are empty
         alert(err.error);
         return of(null);
       }));
@@ -50,6 +51,7 @@ export class LibraryService {
         return aryOfDvd;
       }),
       catchError((err) => {
+        // failed to fetch from the database, or dvds are empty
         alert(err.error);
         return of(null);
       }));
