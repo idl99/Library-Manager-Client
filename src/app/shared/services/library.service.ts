@@ -28,7 +28,7 @@ export class LibraryService {
   }
 
   getAllBooks(): Observable<Book[]> {
-    return this.httpService.get<Book[]>('http://localhost:9000/library/books').pipe(
+    return this.httpService.get<Book[]>('https://w1673607-library-manager.herokuapp.com/library/books').pipe(
       map((response) => {
         const aryOfBooks: Array<Book> = [];
         response.forEach(element => aryOfBooks.push(Book.fromObject(element)));
@@ -42,7 +42,7 @@ export class LibraryService {
   }
 
   getAllDvd(): Observable<Dvd[]> {
-    return this.httpService.get<Dvd[]>('http://localhost:9000/library/dvd').pipe(
+    return this.httpService.get<Dvd[]>('https://w1673607-library-manager.herokuapp.com/library/dvd').pipe(
       map((response) => {
         const aryOfDvd: Array<Dvd> = [];
         response.forEach(element => {
@@ -58,28 +58,28 @@ export class LibraryService {
   }
 
   postBook(book: Book): Observable<Book> {
-    return this.httpService.post<Book>('http://localhost:9000/library/books', book);
+    return this.httpService.post<Book>('https://w1673607-library-manager.herokuapp.com/library/books', book);
   }
 
   postDvd(dvd: Dvd): Observable<Dvd> {
-    return this.httpService.post<Dvd>('http://localhost:9000/library/dvd', dvd);
+    return this.httpService.post<Dvd>('https://w1673607-library-manager.herokuapp.com/library/dvd', dvd);
   }
 
   deleteBook(isbn: String): Observable<String> {
-    return this.httpService.delete<String>('http://localhost:9000/library/books/' + isbn);
+    return this.httpService.delete<String>('https://w1673607-library-manager.herokuapp.com/library/books/' + isbn);
   }
 
   deleteDvd(isbn: String): Observable<String> {
-    return this.httpService.delete<String>('http://localhost:9000/library/dvd/' + isbn);
+    return this.httpService.delete<String>('https://w1673607-library-manager.herokuapp.com/library/dvd/' + isbn);
   }
 
   borrowItem(item: LibraryItem, readerId: String, dateString: String): Observable<LibraryItem> {
 
     if (item instanceof Book) {
-      return this.httpService.put<Book>('http://localhost:9000/library/borrow',
+      return this.httpService.put<Book>('https://w1673607-library-manager.herokuapp.com/library/borrow',
       {type: 'Book', isbn: item.getIsbn(), readerId: readerId, borrowedOn: dateString});
     } else if (item instanceof Dvd) {
-      return this.httpService.put<Dvd>('http://localhost:9000/library/borrow',
+      return this.httpService.put<Dvd>('https://w1673607-library-manager.herokuapp.com/library/borrow',
       {type: 'Dvd', isbn: item.getIsbn(), readerId: readerId, borrowedOn: dateString});
     }
 
@@ -90,12 +90,12 @@ export class LibraryService {
     if (item instanceof Book) {
       // return this.httpService.put<Book>('http://localhost:9000/library/return',
       // {type: 'Book', isbn: item.getIsbn(), returnedOn: '10/12/2018'});
-      return this.httpService.put<Book>('http://localhost:9000/library/return',
+      return this.httpService.put<Book>('https://w1673607-library-manager.herokuapp.com/library/return',
       {type: 'Book', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
     } else if (item instanceof Dvd) {
       // return this.httpService.put<Dvd>('http://localhost:9000/library/return',
       // {type: 'Dvd', isbn: item.getIsbn(), returnedOn: '10/12/2018'});
-      return this.httpService.put<Dvd>('http://localhost:9000/library/return',
+      return this.httpService.put<Dvd>('https://w1673607-library-manager.herokuapp.com/library/return',
       {type: 'Dvd', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
     }
 
@@ -108,12 +108,12 @@ export class LibraryService {
     } else if (item instanceof Dvd) {
       type = 'Dvd';
     }
-    return this.httpService.put<any>('http://localhost:9000/library/reserve',
+    return this.httpService.put<any>('https://w1673607-library-manager.herokuapp.com/library/reserve',
     {type: type, isbn: item.getIsbn(), readerId: readerId});
   }
 
   getReport(generatedOn: String): Observable<LibraryItem[]> {
-    return this.httpService.get<LibraryItem[]>('http://localhost:9000/library/report?generatedOn=' + generatedOn);
+    return this.httpService.get<LibraryItem[]>('https://w1673607-library-manager.herokuapp.com/library/report?generatedOn=' + generatedOn);
   }
 
 

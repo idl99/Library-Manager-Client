@@ -188,7 +188,7 @@ export class ItemListComponent implements OnInit {
     const readerId = window.prompt('Enter Reader Id: ');
 
     if (readerId == null) {
-      alert('Reader Id is required. Try again');  
+      alert('Reader Id is required. Try again');
     } else {
 
       this.startProgressSpinner('Reserving Item', 'Please wait while we reserve this Item for you.');
