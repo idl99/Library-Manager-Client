@@ -8,6 +8,18 @@ button {
     margin-right: 10px; 
 }
 
-table[mat-table] {
-    width: 100%;
+.mat-header-cell, .mat-cell{
+    width: fit-content;
+    white-space: nowrap;
+    padding-left: 25px;
+    padding-right: 25px; 
 }
+
+.mat-column-availability, .mat-column-type{
+    text-align: center;
+}
+
+table {
+    border-collapse: separate;
+    overflow-x: auto;
+}   

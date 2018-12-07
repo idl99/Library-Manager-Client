@@ -15,12 +15,9 @@ import { ProgressSpinnerDialogComponent } from '../progress-spinner-dialog/progr
 })
 export class ItemListComponent implements OnInit {
 
-
-
-  private dataSource: MatTableDataSource<LibraryItem>;
-  private columnsToDisplay: String[] = ['Availability', 'Type', 'ISBN', 'title', 'section', 'actionBtns', 'availableOn'];
+  dataSource: MatTableDataSource<LibraryItem>;
+  columnsToDisplay: String[] = ['availability', 'type', 'ISBN', 'title', 'section', 'actionBtns', 'availableOn'];
   progressSpinnerDialogRef: MatDialogRef<ProgressSpinnerDialogComponent, any>;
-
 
   constructor(public dialog: MatDialog, private libraryService: LibraryService ) {
     this.dataSource = new MatTableDataSource();
@@ -47,27 +44,27 @@ export class ItemListComponent implements OnInit {
 
   }
 
-  public applyFilter(filterString: String): void {
+  applyFilter(filterString: String): void {
     this.dataSource.filter = filterString.trim().toLowerCase();
   }
 
 
-  private isBook(item: LibraryItem): boolean {
+  isBook(item: LibraryItem): boolean {
     return item instanceof Book;
   }
 
 
-  private isDvd(item: LibraryItem): boolean {
+  isDvd(item: LibraryItem): boolean {
     return item instanceof Dvd;
   }
 
 
-  private isAvailable(item: LibraryItem): boolean {
+  isAvailable(item: LibraryItem): boolean {
     return item.getCurrentReader() === null ? true : false;
   }
 
 
-  private getAvailableOn(item: LibraryItem): String {
+  getAvailableOn(item: LibraryItem): String {
 
     if (this.isAvailable(item)) {
       return 'Available Now';
@@ -92,7 +89,7 @@ export class ItemListComponent implements OnInit {
 
 
   // method invoked to open Add Item Dialog
-  private onAddItem(choice: String): void {
+  onAddItem(choice: String): void {
     const addItemDialogRef = this.dialog.open(AddItemDialogComponent, {
       width: '600px',
       data: {
@@ -109,7 +106,7 @@ export class ItemListComponent implements OnInit {
   }
 
 
-  private onDelete(item: LibraryItem): void {
+  onDelete(item: LibraryItem): void {
 
     let observable: Observable<String>;
 
@@ -137,7 +134,7 @@ export class ItemListComponent implements OnInit {
   }
 
 
-  private onBorrow(libraryItem: LibraryItem): void {
+  onBorrow(libraryItem: LibraryItem): void {
 
     const readerId: String = window.prompt('Enter Reader Id: ');
     if (readerId === null) {
@@ -162,7 +159,7 @@ export class ItemListComponent implements OnInit {
   }
 
 
-  private onReturn(libraryItem: LibraryItem): void {
+  onReturn(libraryItem: LibraryItem): void {
 
     this.startProgressSpinner('Returning Item', 'Please wait while we process this Item Return.');
 
@@ -183,7 +180,7 @@ export class ItemListComponent implements OnInit {
   }
 
 
-  private onReserve(libraryItem: LibraryItem): void {
+  onReserve(libraryItem: LibraryItem): void {
 
     const readerId = window.prompt('Enter Reader Id: ');
 
@@ -210,7 +207,7 @@ export class ItemListComponent implements OnInit {
     }
   }
 
-  private startProgressSpinner(title: String, message: String) {
+  startProgressSpinner(title: String, message: String) {
     this.progressSpinnerDialogRef = this.dialog.open(ProgressSpinnerDialogComponent, {
       panelClass: 'transparent',
       disableClose: true,
@@ -221,7 +218,7 @@ export class ItemListComponent implements OnInit {
     });
   }
 
-  private finishProgressSpinner() {
+  finishProgressSpinner() {
     if (this.progressSpinnerDialogRef !== undefined) {
       this.progressSpinnerDialogRef.close();
     }
