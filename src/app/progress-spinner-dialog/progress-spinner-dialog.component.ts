@@ -8,8 +8,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ProgressSpinnerDialogComponent implements OnInit {
 
-  private title: String;
-  private message: String;
+  title: String;
+  message: String;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any) {
     this.title = data.title;
