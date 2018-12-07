@@ -43,7 +43,7 @@ export class AddItemDialogComponent implements OnInit {
 
   }
 
-  private onAddItem(): void {
+  onAddItem(): void {
 
     const toPostItem: LibraryItem = this.getFormInput(this.addItemForm.value);
     let observable: Observable<LibraryItem>;
@@ -62,11 +62,11 @@ export class AddItemDialogComponent implements OnInit {
 
   }
 
-  private updateDate(event: MatDatepickerInputEvent<Date>): void {
+  updateDate(event: MatDatepickerInputEvent<Date>): void {
     this.addItemForm.controls.itemDetails.get('pubDate').setValue(event.value.toLocaleDateString('en-gb'));
   }
 
-  private getFormInput(formGroup: Object): LibraryItem {
+  getFormInput(formGroup: Object): LibraryItem {
 
     const obj: Object = {};
 
