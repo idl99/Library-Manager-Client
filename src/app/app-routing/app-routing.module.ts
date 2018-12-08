@@ -20,7 +20,7 @@ const appRoutes: Route[] = [
     { path: '', redirectTo: 'item-list', pathMatch: 'full' }
   ]},
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: 'library/item-list', pathMatch: 'full' }
 ];
 
 @NgModule({
