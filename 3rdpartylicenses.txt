@@ -405,12 +405,20 @@ MIT
 
 @angular/material/button
 
-@angular/material/table
+@angular/material/sidenav
 
-@angular/material/form-field
+@angular/material/toolbar
 
 @angular/forms
 MIT
+
+@angular/material/core
+
+@angular/material/list
+
+@angular/material/table
+
+@angular/material/form-field
 
 @angular/material/sort
 
@@ -421,14 +429,6 @@ MIT
 @angular/material/expansion
 
 @angular/material/progress-spinner
-
-@angular/material/sidenav
-
-@angular/material/toolbar
-
-@angular/material/core
-
-@angular/material/list
 
 zone.js
 MIT
