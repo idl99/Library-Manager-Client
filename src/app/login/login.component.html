@@ -1,0 +1,14 @@
+<div class="w-100 h-100 d-flex justify-content-center align-items-center">
+  <div class="w-100 d-flex justify-content-center ">
+    <form class="h-100 px-5 py-5 col-12 col-md-3 d-flex flex-column justify-content-center">
+      <h4 class="my-4 text-center">Library Manager System</h4>
+      <mat-form-field>
+        <input matInput type="text" [(ngModel)]="credentials.username" name="username" placeholder="Username">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" [(ngModel)]="credentials.password" name="password" placeholder="Password">
+      </mat-form-field>
+      <button mat-flat-button color="accent" (click)="onSubmit()">Login</button>
+    </form>
+  </div>
+</div>
