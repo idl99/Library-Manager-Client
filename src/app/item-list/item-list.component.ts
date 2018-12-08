@@ -15,13 +15,16 @@ import { ProgressSpinnerDialogComponent } from '../progress-spinner-dialog/progr
 })
 export class ItemListComponent implements OnInit {
 
+
   dataSource: MatTableDataSource<LibraryItem>;
   columnsToDisplay: String[] = ['availability', 'type', 'ISBN', 'title', 'section', 'actionBtns', 'availableOn'];
   progressSpinnerDialogRef: MatDialogRef<ProgressSpinnerDialogComponent, any>;
 
+
   constructor(public dialog: MatDialog, private libraryService: LibraryService ) {
     this.dataSource = new MatTableDataSource();
   }
+
 
   ngOnInit(): void {
 
@@ -43,6 +46,7 @@ export class ItemListComponent implements OnInit {
     });
 
   }
+
 
   applyFilter(filterString: String): void {
     this.dataSource.filter = filterString.trim().toLowerCase();
@@ -88,7 +92,6 @@ export class ItemListComponent implements OnInit {
   }
 
 
-  // method invoked to open Add Item Dialog
   onAddItem(choice: String): void {
     const addItemDialogRef = this.dialog.open(AddItemDialogComponent, {
       width: '600px',
@@ -207,6 +210,7 @@ export class ItemListComponent implements OnInit {
     }
   }
 
+
   startProgressSpinner(title: String, message: String) {
     this.progressSpinnerDialogRef = this.dialog.open(ProgressSpinnerDialogComponent, {
       panelClass: 'transparent',
@@ -217,6 +221,7 @@ export class ItemListComponent implements OnInit {
       }
     });
   }
+
 
   finishProgressSpinner() {
     if (this.progressSpinnerDialogRef !== undefined) {

@@ -13,7 +13,6 @@ export class LoginService {
   constructor(private router: Router) { }
 
   login(username: String, password: String): void {
-    // 'ezrsZmcEtqhntr'
     if (username === 'admin' && password === '1234') {
       this.isLoggedIn = true;
     } else {

@@ -27,13 +27,4 @@ export class ReportComponent implements OnInit {
     );
   }
 
-  // private initializeDataSource(): void {
-  //   this.libraryService.getReport(new Date(Date.now()).toLocaleDateString('en-gb')).subscribe(
-  //     success => {
-  //       this.dataSource.data = success['items'];
-  //       this.dataSource.sort = this.sort;
-  //     }
-  //   );
-  // }
-
 }

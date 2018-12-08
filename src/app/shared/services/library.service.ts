@@ -35,7 +35,6 @@ export class LibraryService {
         return aryOfBooks;
       }),
       catchError((err) => {
-        // failed to fetch from the database, or books are empty
         alert(err.error);
         return of(null);
       }));
@@ -51,7 +50,6 @@ export class LibraryService {
         return aryOfDvd;
       }),
       catchError((err) => {
-        // failed to fetch from the database, or dvds are empty
         alert(err.error);
         return of(null);
       }));
@@ -88,13 +86,9 @@ export class LibraryService {
   returnItem(item: LibraryItem): Observable<LibraryItem> {
 
     if (item instanceof Book) {
-      // return this.httpService.put<Book>('http://localhost:9000/library/return',
-      // {type: 'Book', isbn: item.getIsbn(), returnedOn: '10/12/2018'});
       return this.httpService.put<Book>('https://w1673607-library-manager.herokuapp.com/library/return',
       {type: 'Book', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
     } else if (item instanceof Dvd) {
-      // return this.httpService.put<Dvd>('http://localhost:9000/library/return',
-      // {type: 'Dvd', isbn: item.getIsbn(), returnedOn: '10/12/2018'});
       return this.httpService.put<Dvd>('https://w1673607-library-manager.herokuapp.com/library/return',
       {type: 'Dvd', isbn: item.getIsbn(), returnedOn: new Date(Date.now()).toLocaleDateString('en-gb')});
     }

@@ -23,7 +23,7 @@ export class AddItemDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddItemDialogComponent>,
                  private fb: FormBuilder, private libraryService: LibraryService) {
     this.itemType = data.itemType;
-  } // end of constructor
+  }
 
   ngOnInit(): void {
 
@@ -34,11 +34,9 @@ export class AddItemDialogComponent implements OnInit {
       });
 
       if (this.itemType === 'Book') {
-        // Add Book form
         this.addItemForm.addControl('bookDetails', this.fb.group({authors: [null], publisher: [null], noOfPages: [null]}));
       } else if (this.itemType === 'Dvd') {
-        // Add DVD form
-        this.addItemForm.addControl('dvdDetails', this.fb.group({ audio: [null], subtitles: [null],producer: [null], actors: [null]}));
+        this.addItemForm.addControl('dvdDetails', this.fb.group({ audio: [null], subtitles: [null], producer: [null], actors: [null]}));
       }
 
   }

@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppNavigationComponent } from './app-navigation/app-navigation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemListComponent } from './item-list/item-list.component';
-import { SearchItemComponent } from './search-item/search-item.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddItemDialogComponent } from './forms/add-item-dialog/add-item-dialog.component';
 import { LibraryService } from './shared/services/library.service';
@@ -26,7 +25,6 @@ import { LoginService } from './shared/services/login.service';
     AppComponent,
     AppNavigationComponent,
     ItemListComponent,
-    SearchItemComponent,
     AddItemDialogComponent,
     ReportComponent,
     ProgressSpinnerDialogComponent,
@@ -68,7 +66,6 @@ import { LoginService } from './shared/services/login.service';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    // dynamically created components
     AddItemDialogComponent,
     ProgressSpinnerDialogComponent
   ]

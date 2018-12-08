@@ -7,12 +7,6 @@ import { LoginComponent } from '../login/login.component';
 import { AppNavigationComponent } from '../app-navigation/app-navigation.component';
 import { LoginAuthGuard } from '../auth/login-auth.guard';
 
-// const appRoutes: Route[] = [
-//   { path: 'itemList', component: ItemListComponent },
-//   { path: 'report', component: ReportComponent },
-//   { path: '', redirectTo: '/itemList', pathMatch: 'full' }
-// ];
-
 const appRoutes: Route[] = [
   { path: 'library', canActivate: [LoginAuthGuard], component: AppNavigationComponent, children: [
     { path: 'item-list', component: ItemListComponent },
