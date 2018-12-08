@@ -18,6 +18,8 @@ import { LibraryService } from './shared/services/library.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportComponent } from './report/report.component';
 import { ProgressSpinnerDialogComponent } from './progress-spinner-dialog/progress-spinner-dialog.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './shared/services/login.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { ProgressSpinnerDialogComponent } from './progress-spinner-dialog/progre
     SearchItemComponent,
     AddItemDialogComponent,
     ReportComponent,
-    ProgressSpinnerDialogComponent
+    ProgressSpinnerDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { ProgressSpinnerDialogComponent } from './progress-spinner-dialog/progre
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    LoginService,
     LibraryService
   ],
   bootstrap: [AppComponent],
