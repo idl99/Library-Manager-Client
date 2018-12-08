@@ -15,6 +15,6 @@ export class AppNavigationComponent {
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 
-  constructor(private breakpointObserver: BreakpointObserver, private loginService: LoginService) {}
+  constructor(private breakpointObserver: BreakpointObserver, public loginService: LoginService) {}
 
 }
