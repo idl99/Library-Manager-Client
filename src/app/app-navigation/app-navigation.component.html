@@ -1,29 +1,20 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
-    <mat-toolbar>
-      <img src="/dist/assets/uow_logo.png" alt="">
-    </mat-toolbar>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+    <mat-toolbar> <img src="/dist/assets/uow_logo.png" alt="" /> </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#" routerLink="/itemList" routerLinkActive="active">Item List</a>
-      <a mat-list-item href="#" routerLink="/report" routerLinkActive="active">Report</a>
+      <a mat-list-item href="#" routerLink="/library/item-list" routerLinkActive="active">Item List</a>
+      <a mat-list-item href="#" routerLink="/library/report" routerLinkActive="active">Report</a>
     </mat-nav-list>
+    <button mat-flat-button class="w-100" color="warn" (click)="loginService.logout()">Logout</button>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
         <i class="material-icons" aria-label="Side nav toggle icon">menu</i>
       </button>
       <span>LIBRARY MANAGER</span>
     </mat-toolbar>
-    <!-- dynamic router outlet content -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
