@@ -13,7 +13,7 @@ export class LoginService {
   constructor(private router: Router) { }
 
   login(username: String, password: String): void {
-    if (username === 'admin' && password === '1234') {
+    if (username === 'admin' && password === 'zclhm123') {
       this.isLoggedIn = true;
     } else {
       alert('Invalid Login Credentials. Please try again.');
