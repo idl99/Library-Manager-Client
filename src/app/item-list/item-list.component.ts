@@ -8,6 +8,14 @@ import { Dvd } from '../shared/models/Dvd';
 import { Observable } from 'rxjs';
 import { ProgressSpinnerDialogComponent } from '../progress-spinner-dialog/progress-spinner-dialog.component';
 
+/**
+ * ITEM LIST COMPONENT CONTROLLER
+ * This typescript controller class controls the view logic for the Item List Component HTML view.
+ * Item List HTML view provides the user with all Library Manager Controls in one view as required by the specificaiton,
+ * which includes Adding new Library Item, Deleting existing Library Item, Borrowing Library Item, Returning Library Item
+ * and Reserving Library Item.
+ */
+
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',

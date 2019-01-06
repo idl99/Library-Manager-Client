@@ -7,6 +7,11 @@ import { Observable } from 'rxjs';
 import { Dvd } from '../../shared/models/Dvd';
 import { LibraryItem } from '../../shared/models/LibraryItem';
 
+/**
+ * ADD ITEM COMPONENT CONTROLLER
+ * This typescript controller class controls the view logic for the Add Item Dialog Component HTML view.
+ * Add Item Dialog view provides the user with an interface to enter details about a new Library Item.
+ */
 
 @Component({
   selector: 'app-add-item-dialog',

@@ -7,6 +7,12 @@ import { LoginComponent } from '../login/login.component';
 import { AppNavigationComponent } from '../app-navigation/app-navigation.component';
 import { LoginAuthGuard } from '../auth/login-auth.guard';
 
+/**
+ * APP ROUTING MODULE
+ * This user defined module handles Single Page Routing for our Angular application.
+ * Included in the main AppModule.
+ */
+
 const appRoutes: Route[] = [
   { path: 'library', canActivate: [LoginAuthGuard], component: AppNavigationComponent, children: [
     { path: 'item-list', component: ItemListComponent },
@@ -22,4 +28,5 @@ const appRoutes: Route[] = [
   imports: [CommonModule, RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {}

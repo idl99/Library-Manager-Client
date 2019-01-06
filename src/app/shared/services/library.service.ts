@@ -6,6 +6,12 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { Dvd } from '../models/Dvd';
 import { map, catchError } from 'rxjs/operators';
 
+/**
+ * LIBRARY SERVICE
+ * This class acts the service layer, between Angular Components and Play Server Application, sending HTTP requests and
+ * returning their responses as observables to components, who've subscribed.
+ */
+
 @Injectable({
   providedIn: 'root'
 })
